@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Kegiatan - Desa Karangharja</title>
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f9fafb; color: #1f2937; line-height: 1.6; }
+    header { position: relative; width: 100%; height: 300px; overflow: hidden; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    header img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); transition: transform 0.5s ease; }
+    header img:hover { transform: scale(1.05); }
+    .detail-container { max-width: 800px; margin: -80px auto 0; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; z-index: 10; animation: fadeIn 0.6s ease; }
+    .detail-title { font-size: 1.8rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .detail-meta { font-size: 0.9rem; color: #6b7280; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .detail-meta i { width: 1rem; height: 1rem; }
+    .detail-content { font-size: 1rem; color: #374151; line-height: 1.8; white-space: pre-line; }
+    .back-link { display: inline-block; margin-top: 2rem; padding: 0.6rem 1.2rem; background: linear-gradient(to right, #10b981, #3b82f6); color: white; border-radius: 8px; text-decoration: none; font-size: 0.9rem; transition: background 0.3s ease; }
+    .back-link:hover { background: linear-gradient(to right, #0ea674, #2563eb); }
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+    @media (max-width: 640px) {
+      header { height: 220px; }
+      .detail-container { margin-top: -60px; padding: 1.2rem; }
+      .detail-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Gambar -->
+  <header id="coverImage">
+    <img src="" alt="Cover Kegiatan">
+  </header>
+
+  <!-- Konten Detail -->
+  <div class="detail-container">
+    <h1 class="detail-title" id="activityTitle">Memuat...</h1>
+    <div class="detail-meta">
+      <span><i data-lucide="calendar"></i> <span id="activityDate">-</span></span>
+      <span><i data-lucide="eye"></i> <span id="activityViews">0</span> dilihat</span>
+    </div>
+    <div class="detail-content" id="activityContent">Memuat konten kegiatan...</div>
+    <a href="index.html#activities" class="back-link">← Kembali ke Kegiatan</a>
+  </div>
+
+  <script>
+    // ==== Firebase Config ====
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0AcdsPrAQxttVk1SBfBcZnF6tYg4y6GM",
+      authDomain: "desakarangharja-31525.firebaseapp.com",
+      databaseURL: "https://desakarangharja-31525-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "desakarangharja-31525",
+      storageBucket: "desakarangharja-31525.firebasestorage.app",
+      messagingSenderId: "428460519406",
+      appId: "1:428460519406:web:fca8b9854de78cac5628ff"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ==== Ambil ID dari URL ====
+    const urlParams = new URLSearchParams(window.location.search);
+    const activityId = urlParams.get('id');
+    console.log("Activity ID dari URL:", activityId);
+
+    if (!activityId) {
+      document.getElementById('activityTitle').textContent = "Kegiatan tidak ditemukan";
+      document.getElementById('activityContent').textContent = "ID kegiatan tidak valid.";
+    } else {
+      db.ref('activities/' + activityId).once('value')
+        .then(snapshot => {
+          const data = snapshot.val();
+          console.log("Data dari Firebase:", data);
+
+          if (data) {
+            // Judul
+            document.getElementById('activityTitle').textContent = data.title || 'Tanpa Judul';
+            // Tanggal
+            document.getElementById('activityDate').textContent = data.date 
+              ? new Date(data.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) 
+              : '-';
+            // Views (tampilkan langsung dari database)
+            document.getElementById('activityViews').textContent = data.views || 0;
+            // Konten
+            document.getElementById('activityContent').innerHTML = data.content || '';
+            // Gambar
+            const coverImg = document.querySelector('#coverImage img');
+            if (data.imageBase64 || data.imageUrl) {
+              coverImg.src = data.imageBase64 || data.imageUrl;
+            } else {
+              coverImg.src = "https://via.placeholder.com/1200x600?text=Tidak+Ada+Gambar";
+            }
+          } else {
+            document.getElementById('activityTitle').textContent = "Kegiatan tidak ditemukan";
+            document.getElementById('activityContent').textContent = "Data kegiatan tidak ada di database.";
+          }
+
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
+        })
+        .catch(err => {
+          console.error("Firebase error:", err);
+          document.getElementById('activityTitle').textContent = "Error memuat data";
+          document.getElementById('activityContent').textContent = "Terjadi kesalahan saat mengambil data.";
+        });
+    }
+  </script>
+
+</body>
+</html>

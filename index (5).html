@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desa KarangHarja - Sistem Informasi Desa</title>
+  <meta name="description" content="Sistem Informasi Desa KarangHarja, Kecamatan Pebayuran, Kabupaten Bekasi, Jawa Barat">
+  <meta name="keywords" content="desa karangharja, pebayuran, bekasi, jawa barat, sistem informasi desa">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/lucide@latest/icons.css" rel="stylesheet">
+  <style>
+    /* Navbar Styles */
+    .navbar {
+      background-color: #fff !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0.25rem 1rem;
+      height: 50px;
+    }
+
+    .navbar-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111827;
+      text-decoration: none;
+      margin-right: auto;
+    }
+
+    .navbar-logo {
+      height: 28px;
+      width: auto;
+      margin-right: 0.25rem;
+    }
+
+    .navbar-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      display: none;
+      color: #111827;
+    }
+
+    .navbar-toggle .bar {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background-color: #111827;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-toggle.active .bar:nth-child(1) {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    .navbar-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .navbar-toggle.active .bar:nth-child(3) {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+
+    .navbar-menu {
+      display: flex;
+    }
+
+    .navbar-links {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-links li {
+      margin-left: 1.5rem;
+    }
+
+    .navbar-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #4b5563;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-links a:hover {
+      color: #2563eb;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 767px) {
+      .navbar-toggle {
+        display: block;
+        margin-left: auto;
+      }
+
+      .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0;
+        width: 180px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .navbar-menu.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .navbar-links {
+        flex-direction: column;
+      }
+
+      .navbar-links li {
+        margin: 0;
+        width: 100%;
+      }
+
+      .navbar-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .navbar-logo {
+        height: 32px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .navbar-logo {
+        height: 36px;
+      }
+    }
+
+    body {
+      padding-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#home" class="navbar-brand">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logoterbaru-kgQaweRbiUUGoGKhzIEJcXSvBx7mcU.png"
+          alt="Logo Desa KarangHarja" 
+             class="navbar-logo">
+        Desa KarangHarja
+      </a>
+      
+      <!-- Mobile Menu Button -->
+      <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <!-- Updated navigation to include all 6 sections in correct order -->
+      <div class="navbar-menu" id="navbar-menu">
+        <ul class="navbar-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#sambutan">Sambutan</a></li>
+          <li><a href="#sejarah">Sejarah</a></li>
+          <li><a href="#about">Struktur</a></li>
+          <li><a href="#map">Maps</a></li>
+          <li><a href="#activities">Kegiatan</a></li>
+          <li><a href="login.html" id="login-btn">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Section 1: Hero (Home) -->
+  <section id="home" class="hero-section">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logoterbaru-kgQaweRbiUUGoGKhzIEJcXSvBx7mcU.png" 
+           alt="Logo Desa KarangHarja" class="logo-img">
+    </div>
+
+    <!-- Text content -->
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span id="typewriter-text">SISTEM INFORMASI DESA KARANGHARJA</span>
+        <span class="cursor">|</span>
+      </h1>
+      <p class="hero-subtitle">Kec. Pebayuran Kab. Bekasi</p>
+      <p class="hero-description">
+        Selamat datang di Sistem Informasi Desa KarangHarja. Kami berkomitmen untuk memberikan pelayanan terbaik
+        kepada masyarakat dan membangun desa yang maju, sejahtera, dan berkelanjutan. Mari bersama-sama
+        membangun KarangHarja yang lebih baik untuk generasi mendatang.
+      </p>
+    </div>
+
+    <div class="scroll-indicator">
+      <i data-lucide="chevron-down" class="scroll-icon"></i>
+    </div>
+  </section>
+
+  <!-- Added Section 2: Sambutan with user's specific content -->
+  <section id="sambutan" class="sambutan-section">
+    <div class="container">
+      <div class="section-header">
+        
+      </div>
+      
+      <!-- Combined photo and text into single responsive container -->
+      <div class="sambutan-content">
+        <div class="sambutan-card">
+          <div class="kepala-desa-profile">
+            <div class="photo-container">
+              <!-- Updated village head photo with new image -->
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Desain%20tanpa%20judul_20250814_151612_0000-voGfSZH0f7BdOqZRqbriQUj4UHcskq.png" alt="Kepala Desa KarangHarja - SUKARMA" class="kepala-desa-photo">
+            </div>
+            <div class="kepala-desa-info">
+              <h3>SUKARMA</h3>
+              <p class="jabatan">Kepala Desa KarangHarja</p>
+              <div class="badge-container">
+                <span class="leadership-badge">
+                  <i data-lucide="award"></i>
+                  Pemimpin Terpercaya
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sambutan-text">
+            <div class="quote-decoration">
+              <div class="quote-icon-large">
+                <i data-lucide="quote"></i>
+              </div>
+            </div>
+            <div class="welcome-message">
+              <h3 class="message-title">Sambutan Kepala Desa</h3>
+              <blockquote class="main-quote">
+    <p class="main-message" style="text-align: justify;">
+        <strong>Selamat datang di website resmi Desa KarangHarja</strong> - media informasi dan pelayanan publik digital yang kami hadirkan untuk mempererat hubungan antara pemerintah desa dan masyarakat. Semoga website ini memberi kemudahan, transparansi, dan ruang partisipasi aktif dalam membangun desa yang maju dan bermartabat.
+    </p>
+</blockquote>
+              <div class="signature-section">
+                <div class="signature-line"></div>
+                <div class="signature-info">
+                  <p class="signature-name"><strong>SUKARMA</strong></p>
+                  <p class="signature-title">Kepala Desa KarangHarja</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Added Section 3: Sejarah with detailed historical content -->
+  <section id="sejarah" class="sejarah-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="history-icon">
+          <i data-lucide="landmark">  </i>
+          <h2>Sejarah Desa KarangHarja</h2>
+        
+        </div>
+        
+        
+    
+      </div>
+      
+      <div class="sejarah-content">
+        <div class="historical-intro">
+          <div class="intro-card">
+          
+            <p>Sebelum Negara Kesatuan Republik Indonesia merdeka, Desa KarangHarja adalah salah satu desa yang dipimpin oleh seorang mandor. Setelah Indonesia merdeka, terbentuklah pemerintahan desa yang dipimpin oleh seorang Kepala Desa.</p>
+          </div>
+        </div>
+
+        <div class="leadership-timeline">
+          <div class="timeline-header">
+            <h3><i data-lucide="users"></i> Sejarah Kepemimpinan Kepala Desa</h3>
+          </div>
+          
+          <div class="timeline">
+            <!-- Timeline items with user's specific historical data -->
+            <div class="timeline-item">
+              <div class="timeline-period">1945-1966</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak Abduloh</h4>
+                  <span class="period-badge">Kepala Desa Pertama</span>
+                </div>
+                <p>Kepala Desa pertama yang memimpin Desa KarangHarja pasca kemerdekaan Indonesia hingga tahun 1966.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">1966-1981</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak Mudehan</h4>
+                  <span class="period-badge">Era Pemekaran</span>
+                </div>
+                <p>Pada masa kepemimpinan Bp. Mudehan, tepatnya tahun 1977, Desa KarangHarja dimekarkan menjadi dua desa yaitu <strong>Desa Karangharja</strong> dan <strong>Desa Karangsegar</strong>.</p>
+                <div class="milestone">
+                  <i data-lucide="map-pin"></i>
+                  <span>Pemekaran Desa (1977)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">1981-1989</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak M. Iyan</h4>
+                  <span class="period-badge">Periode Pembangunan</span>
+                </div>
+                <p>Masa kepemimpinan yang fokus pada pembangunan infrastruktur dan peningkatan kesejahteraan masyarakat.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">1989-1998</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak H. Miih Agus</h4>
+                  <span class="period-badge">Era Modernisasi</span>
+                </div>
+                <p>Periode modernisasi dan peningkatan pelayanan publik kepada masyarakat desa.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">1998-2006</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak Surahman</h4>
+                  <span class="period-badge">Era Reformasi</span>
+                </div>
+                <p>Kepemimpinan pada masa reformasi dengan fokus transparansi dan partisipasi masyarakat.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">2006-2010</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak Ir. Ujang Bustaman</h4>
+                  <span class="period-badge">Pembangunan Teknis</span>
+                </div>
+                <p>Dengan latar belakang teknik, fokus pada pembangunan infrastruktur dan perencanaan desa yang lebih baik.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item transition-period">
+              <div class="timeline-period">2010-2011</div>
+              <div class="timeline-content">
+                <div class="transition-info">
+                  <i data-lucide="shuffle"></i>
+                  <h4>Masa Transisi</h4>
+                  <span class="period-badge">Penjabat & PLH</span>
+                </div>
+                <div class="transition-details">
+                  <div class="transition-item">
+                    <strong>Pj. Bapak Nurahdiat</strong> <span>(3 bulan)</span>
+                  </div>
+                  <div class="transition-item">
+                    <strong>PLH Bapak Roni Sarkani</strong> <span>(27 Agustus 2010 - 3 bulan)</span>
+                  </div>
+                  <div class="transition-item">
+                    <strong>Pjs. Bapak Mintra</strong> <span>(hingga Juni 2011)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-period">2011-2017</div>
+              <div class="timeline-content">
+                <div class="leader-info">
+                  <i data-lucide="user-circle"></i>
+                  <h4>Bapak H. Bonin Anwar</h4>
+                  <span class="period-badge">Kepala Desa Terpilih</span>
+                </div>
+                <p>Dilantik pada tanggal <strong>17 Juni 2011</strong> dan berakhir pada tanggal <strong>15 Juni 2017</strong>.</p>
+                <div class="milestone">
+                  <i data-lucide="calendar-check"></i>
+                  <span>Periode Penuh 6 Tahun</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item transition-period">
+              <div class="timeline-period">2017</div>
+              <div class="timeline-content">
+                <div class="transition-info">
+                  <i data-lucide="shuffle"></i>
+                  <h4>Masa Transisi 2017</h4>
+                  <span class="period-badge">Plt & Pj</span>
+                </div>
+                <div class="transition-details">
+                  <div class="transition-item">
+                    <strong>Plt. Roni Sarkani</strong> 
+                    <span>SK Camat No: 141.1/KEP/PEM/2017 (16 Juni 2017)</span>
+                  </div>
+                  <div class="transition-item">
+                    <strong>Pj. Bapak Daestim</strong> 
+                    <span>SK Bupati No: 141/Kep.551-DPMD/2017 (19 Juli 2017)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item current">
+              <div class="timeline-period">2018-Sekarang</div>
+              <div class="timeline-content">
+                <div class="leader-info current-leader">
+                  <i data-lucide="star"></i>
+                  <h4>Bapak SUKARMA</h4>
+                  <span class="period-badge current-badge">Kepala Desa Aktif</span>
+                </div>
+                <p>Dilantik berdasarkan <strong>Keputusan Bupati Bekasi Nomor: 141/Kep.319-DPMD/2018</strong> tanggal <strong>28 September 2018</strong> tentang Pengesahan dan Pengangkatan Kepala Desa Terpilih hasil Pemilihan Kepala Desa di Kabupaten Bekasi Tahun 2018.</p>
+                <div class="milestone current-milestone">
+                  <i data-lucide="trophy"></i>
+                  <span>Kepemimpinan Aktif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Statistics section with animated numbers -->
+        <div class="sejarah-stats">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i data-lucide="calendar"></i>
+            </div>
+            <div class="stat-number">78+</div>
+            <div class="stat-label">Tahun Berdiri</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i data-lucide="users"></i>
+            </div>
+            <div class="stat-number">12</div>
+            <div class="stat-label">Kepala Desa</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i data-lucide="map-pin"></i>
+            </div>
+            <div class="stat-number">1977</div>
+            <div class="stat-label">Tahun Pemekaran</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i data-lucide="handshake"></i>
+            </div>
+            <div class="stat-number">6</div>
+            <div class="stat-label">Era Kepemimpinan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Organizational Structure -->
+  <section id="about" class="org-section">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">STRUKTURAL PEMERINTAH DESA KARANGHARJA</h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+      </div>
+
+      <!-- Organizational Chart -->
+      <div class="org-chart-container">
+        <!-- Level 0: Kepala Desa -->
+        <div class="org-level">
+          <div class="org-node level-0">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>KEPALA DESA</h3>
+              <p>SUKARMA</p>
+            </div>
+          </div>
+          <div class="connection-line vertical"></div>
+        </div>
+
+        <!-- Level 1: Sekretaris Desa -->
+        <div class="org-level">
+          <div class="org-node level-1">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>SEKERTARIS DESA</h3>
+              <p>SUHANDI</p>
+            </div>
+          </div>
+          <div class="connection-line vertical"></div>
+        </div>
+
+        <!-- Level 2: Kasi Pemerintah -->
+        <div class="org-level">
+          <div class="org-node level-2">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>KASI PEMERINTAH</h3>
+              <p>H. AHMADIMYATI</p>
+            </div>
+          </div>
+          <div class="connection-line vertical"></div>
+        </div>
+
+        <!-- Level 3: Staff Level 1 -->
+        <div class="org-staff-grid">
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3> STAF PELAYANAN</h3>
+              <p>LIMAN OGAN</p>
+            </div>
+          </div>
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>STAF KESEJANTRAAN</h3>
+              <p>SATIM</p>
+            </div>
+          </div>
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>STAF UMUM</h3>
+              <p>AMSOR</p>
+            </div>
+          </div>
+        </div>
+        <div class="connection-line vertical"></div>
+
+        <!-- Level 4: Staff Level 2 -->
+        <div class="org-staff-grid">
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>STAF PERANCANAN</h3>
+              <p>SAMSUDIN</p>
+            </div>
+          </div>
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>STAF TATAUSAHA</h3>
+              <p>TALA</p>
+            </div>
+          </div>
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>STAF PEMERINTAH</h3>
+              <p>WARDI GOSER</p>
+            </div>
+          </div>
+        </div>
+        <div class="connection-line vertical"></div>
+
+        <!-- Level 5: Others -->
+        <div class="org-staff-grid cols-2">
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>UPAS DESA</h3>
+              <p>AJI</p>
+            </div>
+          </div>
+          <div class="org-node level-3">
+            <div class="org-card">
+              <div class="org-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3>SEKERTARIS BPD</h3>
+              <p>TOHID</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Google Maps -->
+  <section id="map" class="map-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>PETA WILAYAH DESA KARANGHARJA</h2>
+        <div class="header-line white"></div>
+      </div>
+
+      <div class="map-container">
+        <div class="map-card">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63457.97647!2d107.2182!3d-6.107994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a2a135c633ae1%3A0xbf0e81e411d23543!2sKarangharja%2C%20Pebayuran%2C%20Bekasi%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1640000000000!5m2!1sen!2sid"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Peta Wilayah Desa KarangHarja dengan Batas Desa"
+            class="map-iframe"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Village Activities -->
+  <section id="activities" class="activities-section">
+    <!-- Background decorative elements -->
+    <div class="decorative-elements">
+      <div class="decorative-circle green"></div>
+      <div class="decorative-circle blue"></div>
+      <div class="decorative-circle purple"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <!-- Header -->
+      <div class="section-header-activities">
+        <div class="calendar-icon">
+          <i data-lucide="calendar"></i>
+        </div>
+        <h2 class="section-title-activities">KEGIATAN DESA KARANGHARJA</h2>
+        <div class="section-divider"></div>
+        <p class="section-description">
+          Ikuti perkembangan terbaru dan berbagai kegiatan yang dilaksanakan untuk kemajuan desa
+        </p>
+      </div>
+
+      <!-- Activities Container - Will be populated by Firebase -->
+      <div id="activitiesContainer" class="activities-grid">
+        <!-- Loading state -->
+        <div class="loading-activities">
+          <i data-lucide="loader-2" class="animate-spin"></i>
+          <p>Memuat kegiatan...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Desa KarangHarja. Semua hak dilindungi.</p>
+      <p class="footer-subtext">Kecamatan Pebayuran, Kabupaten Bekasi, Jawa Barat</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-storage-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
